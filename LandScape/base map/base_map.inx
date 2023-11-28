@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension priority="2" xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+<name>2. Base Map</name>
+<id>user.basemap</id>
+<param name="text" type="description">This extension will print the stored latitude and longitude metadata onto the document.</param>
+
+<effect needs-live-preview="false">
+	<effects-menu>
+      	<menu name="LandScape"/>
+	</effects-menu>
+	<object-type>all</object-type>
+</effect>
+
+<script>
+	<command location="inx" interpreter="python">base_map.py</command>
+</script>
+
+</inkscape-extension>
