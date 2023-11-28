@@ -30,5 +30,5 @@ tested on:
 1. inkscape 1.3 on windows 11.
 
 # Project updates:
-** 29.11: first code upload.**
+**29.11: first code upload.**
 
