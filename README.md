@@ -5,6 +5,7 @@ This is an extension pack for Permaculture Design with Inkscape. it is a work in
 It tries to overcome the coplexity of CAD tools, that are far fetched for most Permaculture Designers. It has to be simple top-down approach that will help connetcing the dots of a multi-layered Design as permaculture mostly involve with.
 
 # Why Inkscape?
+soon...
 
 # What inside (recent update: 29.11)?
 As for now there are four extensions that needs to be processed one after the other (they are numbered in the LandScape submenu at the "Extensions" menu inside inkscape. 
@@ -29,6 +30,5 @@ tested on:
 1. inkscape 1.3 on windows 11.
 
 # Project updates:
-## 29.11: first code upload.
-
+** 29.11: first code upload.**
 
