@@ -24,7 +24,12 @@ class BaseMap(inkex.EffectExtension):
         doc_width = self.svg.unittouu(svg_root.get('width'))
         doc_height = self.svg.unittouu(svg_root.get('height'))
         
-         # Find or create the "Base Map" layer
+        # delete the default layer
+        layer = self.find_layer("Layer 1")
+        if layer is not None:
+            layer.getparent().remove(layer)
+        
+        # Find or create the "Base Map" layer
         layer = self.find_layer("Base Map")
         if layer is not None:
             inkex.errormsg(f"Layer 'Base Map' already created before, there should be only one.")
@@ -37,8 +42,6 @@ class BaseMap(inkex.EffectExtension):
             zoom = geo_data.get('zoomlevel')
 
             if lat and lon:
-                self.add_text(svg_root, f"Latitude: {lat}", 100, 100) 
-                self.add_text(svg_root, f"Longitude: {lon}", 100, 120)
                 response = requests.get(url +"center="+lat+","+lon+"&zoom="+zoom+"&size=2048x2048&scale=2&maptype=hybrid&key=AIzaSyDAblLSzOE_u7wS2OiPrQgsu_z4cdcIBU0")
                 if response.status_code == 200:
                     # Create a new layer called "Base Map"

@@ -2,8 +2,21 @@
 <inkscape-extension priority="2" xmlns="http://www.inkscape.org/namespace/inkscape/extension">
 <name>2. Base Map</name>
 <id>user.basemap</id>
-<param name="text" type="description">This extension will print the stored latitude and longitude metadata onto the document.</param>
+<param name="text" type="description">This step will request the satelite map for the corresponding Latitude and longitude</param>
+<separator />
 
+<param name="name" type="notebook">
+	<page name="page_1" gui-text="2. Base map">
+		<param name="text" type="description">Just hit "Apply".</param>
+	</page>
+    <page name="page_2" gui-text="About Landscape">
+       <param name="text" type="description">LandScape is Open Source and free.</param>
+		<param name="text" type="description">If you think LandScape is helpful, consider supporting me at:</param>
+			<param name="text" type="description">https://www.patreon.com/LandScape_Permaculture</param>
+
+<image>../img/logo.png</image>
+    </page>
+</param>
 <effect needs-live-preview="false">
 	<effects-menu>
       	<menu name="LandScape"/>
