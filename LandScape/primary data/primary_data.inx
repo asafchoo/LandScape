@@ -2,10 +2,15 @@
 <inkscape-extension  priority="1"  xmlns="http://www.inkscape.org/namespace/inkscape/extension">
   <name>1. Primary Data</name>
   <id>user.primarydata</id>
-  <menu-tip>the first step is to input some basic information about the basic setting of the project</menu-tip>
-  <param name="text" type="description">Primary data: the first step is to input some basic information about the basic setting of the project</param>
+  <menu-tip>The first step is to input some basic information about the basic setting of the project</menu-tip>
+  <param name="text" type="description">the first step is to input some basic information about the basic setting of the project</param>
   <separator />
-  <param name="text" type="description">Document Settings:</param>
+  
+  
+
+<param name="name" type="notebook">
+    <page name="page_1" gui-text="1. Primary data">
+       <param name="text" type="description">Document Settings:</param>
   <param name="widthofdoc" type="string" label="width of document" gui-text="what will be the width of the document? (in mm)">00</param>
   <param name="heightofdoc" type="string"  label="height of document" gui-text="what will be the height of the document? (in mm)">00</param>
   <separator />
@@ -22,7 +27,16 @@
     <item value="19">19 - ~160m²</item>
     <item value="20">20 - ~85m²</item>
   </param>
-  
+    </page>
+    <page name="page_2" gui-text="About Landscape">
+       <param name="text" type="description">LandScape is Open Source and free.</param>
+		<param name="text" type="description">If you think LandScape is helpful, consider supporting me at:</param>
+			<param name="text" type="description">https://www.patreon.com/LandScape_Permaculture</param>
+
+<image>../img/logo.png</image>
+    </page>
+</param>
+
 
 <effect needs-live-preview="false">
    <effects-menu>

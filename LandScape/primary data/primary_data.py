@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import inkex
 from lxml import etree
-
+import webbrowser
 
 class PrimaryData(inkex.EffectExtension):
     def add_arguments(self, pars):
@@ -10,7 +10,8 @@ class PrimaryData(inkex.EffectExtension):
         pars.add_argument("--widthofdoc", type=str, help="width of document")
         pars.add_argument("--heightofdoc", type=str, help="height of document")
         pars.add_argument("--zoomlevel", type=str, help="zoom level")
-
+        pars.add_argument("--Precipitation", type=str, help="Precipitation")
+        pars.add_argument("--open_url", type=inkex.Boolean, help="Open Website")
 
     def effect(self):
          # Retrieve the input values
@@ -50,13 +51,16 @@ class PrimaryData(inkex.EffectExtension):
             geo_data.set('latitude', lat)
             geo_data.set('longitude', lon)
             geo_data.set('zoomlevel', zoom)
+            geo_data.set('Precipitation', zoom)
             metadata.append(geo_data)
 
             # Output a message
             inkex.utils.debug(f"Metadata set: Latitude: {lat}, Longitude: {lon}, Zoom level: {zoom}")
         else:
             inkex.errormsg("Latitude or Longitude not provided.")
-
+        
+        if self.options.open_url:
+            webbrowser.open("http://www.example.com")
 
 if __name__ == '__main__':
     PrimaryData().run()
