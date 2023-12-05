@@ -2,8 +2,26 @@
 <inkscape-extension priority="4" xmlns="http://www.inkscape.org/namespace/inkscape/extension">
 <name>4. Elevation</name>
 <id>user.Elevation</id>
-<param name="text" type="description">Elevation</param>
+ <menu-tip>Elevation: Genetrate elevation contour lines</menu-tip>
+    <param name="text" type="description">Elevation: Genetrate elevation contour lines</param>
+	<separator />
+	<param name="name" type="notebook">
+	<page name="page_1" gui-text="4. Elevation">
+	
+<param name="num_points" type="int" min="50" max="500" gui-text="Number of points per side">200</param>
+<param name="contour_gaps" type="int" min="1" max="10" gui-text="contour line every...m">1</param>
 
+<param name="threshold" type="int" min="1" max="5" gui-text="threshold">2</param>
+<param name="max_distance" type="int" min="5" max="50" gui-text="distance between paths">10</param>
+</page>
+<page name="page_2" gui-text="About Landscape">
+       <param name="text" type="description">LandScape is Open Source and free.</param>
+		<param name="text" type="description">If you think LandScape is helpful, consider supporting me at:</param>
+			<param name="text" type="description">https://www.patreon.com/LandScape_Permaculture</param>
+
+<image>../img/logo.png</image>
+    </page>
+</param>
 <effect needs-live-preview="false">
 	<effects-menu>
       	<menu name="LandScape"/>
