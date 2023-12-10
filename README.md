@@ -22,7 +22,7 @@ This extension will calibrate the scale of the document in meters with a known r
 ## 4. Elevation
 This extention will draw elevation contour lines on the base map. the data is acquired from google elevation maps API service, but it's pretty acurate, as far of the experiments done so far.
 Note: 
-* still not contour lines but instead contour points that can interperted as lines (TODO)
+* The extension will use user input for number of points (squered), will define the basic resolution, while the threshold and distance between pathes are needed to clean the defenition between the contour lines. the user can also define the spacing beteen contour lines, between 1m wich will preduce a contour line every 1m, and 10m thgat will preduce contours every 10m. 
 * As for now the process of acquiring the data can take several minutes as it requesting around 40K data points for the plot(!) regardless of the resolution of choice. Eventually it will discard only rounded or close to rounded values so there will be only 10th of the points on the document. but the filteration is done localy so the request can take 3-4 min.
 
 # compatability
