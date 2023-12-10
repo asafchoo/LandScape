@@ -27,7 +27,8 @@ Note:
 
 # compatability
 tested on:
-1. inkscape 1.3 on windows 11.
+1. inkscape 1.3 on windows 11
+2. inkscape 1.3.2 on windows 10
 
 # Project updates:
 **10.12.23: inx's file update** 
