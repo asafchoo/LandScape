@@ -10,6 +10,8 @@
   <param name="widthofdoc" xml:lang="en" type="string" label="width of document" gui-text="what will be the width of the document? (in mm)">00</param>
   <param name="heightofdoc" xml:lang="en" type="string"  label="height of document" gui-text="what will be the height of the document? (in mm)">00</param>
   <separator />
+  <label xml:space="preserve">
+  </label>
   <param name="text" type="description">Property Settings:</param>
   <param name="latitude" type="string" label="Latitude" gui-text="What's the latitude?">00.00</param>
   <param name="longitude" type="string"  label="longitude" gui-text="What's the longitude?">00.00</param>
@@ -24,6 +26,8 @@
     <item value="20">20 - ~85m²</item>
   </param>
   <separator />
+
+
 <label xml:space="preserve">
 
 
@@ -42,4 +46,5 @@ If you think LandScape is helpful, consider supporting me at:</label>
     <script>
       <command location="inx" interpreter="python">primary_data.py</command>
     </script>
-</inkscape-extension>\
+
+</inkscape-extension>
