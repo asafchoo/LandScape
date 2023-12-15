@@ -25,14 +25,19 @@ Note:
 * The extension will use user input for number of points (squered), will define the basic resolution, while the threshold and distance between pathes are needed to clean the defenition between the contour lines. the user can also define the spacing beteen contour lines, between 1m wich will preduce a contour line every 1m, and 10m thgat will preduce contours every 10m. 
 * As for now the process of acquiring the data can take several minutes as it requesting around 40K data points for the plot(!) regardless of the resolution of choice. Eventually it will discard only rounded or close to rounded values so there will be only 10th of the points on the document. but the filteration is done localy so the request can take 3-4 min.
 
+## 5. Site Boundaries
+The Site Boundaries uses a polygon that the designer is marking on the basemap to:
+1. calculate the site area in square meters and print it on the document
+2. fadeout everything that is not within the site. 
+
 # compatability
 tested on:
 1. inkscape 1.3 on windows 11
 2. inkscape 1.3.2 on windows 10
 
 # Project updates:
-**10.12.23: inx's file update** 
-
+**15.12.23: added functionality - Site Boundaries**
+10.12.23: inx's file update 
 29.11.23: first code upload.
 
 ## TODO:
