@@ -43,6 +43,4 @@ tested on:
 29.11.23: first code upload.
 
 ## TODO:
-**Site bounderies** - a tool for marking the bounderies of the site on top of the square map. it will preform opacity on the rest of the map, and will measure the total serunding boundery and the area of the polygon. it will be added as a sublayer, "boundery", to the base map 
-
 **Precipitation** - a tool that will take a predefined polygon, will move it to a new layer (if it's not already on that layer), take the yearly Precipitation data, and calculate the Precipitation that will fall yearly on that polygon 
