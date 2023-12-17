@@ -7,7 +7,7 @@ It tries to overcome the coplexity of CAD tools, that are far fetched for most P
 # Why Inkscape?
 soon...
 
-# What inside (recent update: 29.11)?
+# What inside (recent update: 16.12)?
 As for now there are four extensions that needs to be processed one after the other (they are numbered in the LandScape submenu at the "Extensions" menu inside inkscape. 
 
 ## 1. Primary data
