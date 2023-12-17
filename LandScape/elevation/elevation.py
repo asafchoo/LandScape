@@ -354,8 +354,7 @@ class ElevationMapExtension(inkex.Effect):
         # Create a new path element with the consolidated 'd' attribute
         new_path = etree.SubElement(sublayer, inkex.addNS('path', 'svg'))
         new_path.set('d', consolidated_d.strip())
-        new_path.set('style', "stroke:black;fill:none;")  # Set the style as needed
-
+        new_path.set('style', "stroke:white;fill:none;stroke-width:0.5")  # Set the style as needed
     
 if __name__ == '__main__':
     ElevationMapExtension().run()
