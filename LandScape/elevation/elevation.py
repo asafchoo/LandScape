@@ -16,7 +16,7 @@ def log(message):
     
 class ElevationMapExtension(inkex.Effect):
     def add_arguments(self, pars):
-        pars.add_argument("--num_points", type=int, default=200, help="Number of points along one side of the grid")
+        pars.add_argument("--num_points", type=int, default=350, help="Number of points along one side of the grid")
         pars.add_argument("--threshold", type=int, default=2, help="accuracy of path seperation")
         pars.add_argument("--max_distance", type=int, default=10, help="distance between paths")
         pars.add_argument("--contour_gaps", type=int, default=1, help="gaps between contour lines - default is 1m")
