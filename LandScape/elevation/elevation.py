@@ -125,6 +125,8 @@ class ElevationMapExtension(inkex.Effect):
                 # Update min and max elevations
                 self.min_elevation = min(self.min_elevation, rounded_elevation)
                 self.max_elevation = max(self.max_elevation, rounded_elevation)
+        
+        sublayers = []  # List to store sublayers
 
         # Create SVG layers and draw circles and lines
         for rounded_elevation, points in elevation_groups.items():
@@ -137,10 +139,13 @@ class ElevationMapExtension(inkex.Effect):
                 # Assume create_path returns an SVG path element for the given point
                 path_element = self.create_path_element([point], "black")
                 sublayer.append(path_element)  # Add the path to the sublayer, not the main layer
-
+            
             self.create_paths_for_group(sublayer, points,threshold)
             self.consolidate_paths(sublayer)
-
+            sublayers.append((rounded_elevation, sublayer))
+        
+        for _, sublayer in sorted(sublayers, key=lambda x: x[0], reverse=True):
+            elevation_layer.append(sublayer)
 
     # Method to find a layer by label
     def find_layer(self, svg_root, label):
