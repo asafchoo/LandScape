@@ -6,7 +6,7 @@ from lxml import etree
 import logging
 
 # Set up logging to file
-logging.basicConfig(filename='C:\\Users\\asafc\\Desktop\\debug.log', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename='C:\\Users\\hamaadama\\Desktop\\debug.log', level=logging.DEBUG, filemode='w')
 
 INKSCAPE_NS = 'http://www.inkscape.org/namespaces/inkscape'
 
