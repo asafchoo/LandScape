@@ -36,6 +36,11 @@ tested on:
 2. inkscape 1.3.2 on windows 10
 
 # Project updates:
+
+24.12.24 (after a long stall): 
+1. Layer nameing in basemap extention
+2. Layer nameing and optimizing object creation on scale extention
+
 **15.12.23: added functionality - Site Boundaries**
 
 10.12.23: inx's file update.
