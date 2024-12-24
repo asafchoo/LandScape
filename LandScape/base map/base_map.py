@@ -78,6 +78,7 @@ class BaseMap(inkex.EffectExtension):
                     image.set('y', '0')
                     image.set('width', str(doc_width))
                     image.set('height', str(doc_height))
+                    image.set('id', 'google map image')  # Set custom name for the image
                     layer.append(image)
 
                     # Delete the temporary file
