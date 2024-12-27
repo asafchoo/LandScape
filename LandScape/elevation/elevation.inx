@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension priority="4" xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+<name>4. Elevation</name>
+<id>user.Elevation</id>
+ <menu-tip>Elevation: Genetrate elevation contour lines</menu-tip>
+    <param name="text" type="description">Elevation: Genetrate elevation contour lines</param>
+	<separator />
+
+<param name="num_points" type="int" min="50" max="500" gui-text="Number of points per side">200</param>
+<param name="contour_gaps" type="int" min="1" max="10" gui-text="contour line every...m">1</param>
+
+<param name="threshold" type="int" min="1" max="5" gui-text="threshold">2</param>
+<param name="max_distance" type="int" min="5" max="50" gui-text="distance between paths">10</param>
+
+<separator />
+<label xml:space="preserve">
+
+
+
+LandScape is Open Source and free.
+If you think LandScape is helpful, consider supporting me at:</label>
+<label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
+
+
+<effect needs-live-preview="false">
+	<effects-menu>
+      		<menu name="LandScape"/>
+	</effects-menu>
+	<object-type>all</object-type>
+</effect>
+
+<script>
+	<command location="inx" interpreter="python">elevation.py</command>
+</script>
+</inkscape-extension>
