@@ -22,6 +22,12 @@ class ElevationMapExtension(inkex.Effect):
         pars.add_argument("--contour_gaps", type=int, default=1, help="gaps between contour lines - default is 1m")
 
     # Initialize variables for minimum and maximum elevation
+    # Initialize variables for minimum and maximum elevation
+    # Initialize variables for minimum and maximum elevation
+    # Initialize variables for minimum and maximum elevation
+    # Initialize variables for minimum and maximum elevation
+    # Initialize variables for minimum and maximum elevation
+    # Initialize variables for minimum and maximum elevation
     min_elevation = float('inf')
     max_elevation = float('-inf')
     
