@@ -35,6 +35,8 @@ class PrimaryData(inkex.EffectExtension):
                 namedview.set(inkex.addNS('document-units', 'inkscape'), 'mm')
             else:
                 # If there is no namedview element, create one and set the units
+                # If there is no namedview element, create one and set the units
+                # If there is no namedview element, create one and set the units
                 namedview = etree.SubElement(svg_root, 'sodipodi:namedview', nsmap=inkex.NSS)
                 namedview.set(inkex.addNS('document-units', 'inkscape'), 'mm')
 
