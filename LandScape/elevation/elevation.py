@@ -22,12 +22,6 @@ class ElevationMapExtension(inkex.Effect):
         pars.add_argument("--contour_gaps", type=int, default=1, help="gaps between contour lines - default is 1m")
 
     # Initialize variables for minimum and maximum elevation
-    # Initialize variables for minimum and maximum elevation
-    # Initialize variables for minimum and maximum elevation
-    # Initialize variables for minimum and maximum elevation
-    # Initialize variables for minimum and maximum elevation
-    # Initialize variables for minimum and maximum elevation
-    # Initialize variables for minimum and maximum elevation
     min_elevation = float('inf')
     max_elevation = float('-inf')
     
@@ -39,8 +33,15 @@ class ElevationMapExtension(inkex.Effect):
         doc_width = self.svg.unittouu(svg_root.get('width'))
         doc_height = self.svg.unittouu(svg_root.get('height'))
         
-        # Create "elevation" layer as the parent layer
-        elevation_layer = self.create_parent_layer(svg_root, "elevation")
+        # Locate the "Measured Elevation Map" layer created by the BaseMap extension
+        measured_elevation_map_layer = self.find_layer(svg_root, "Measured Elevation Map")
+
+        if measured_elevation_map_layer is None:
+            inkex.errormsg("Measured Elevation Map layer not found. Please run the BaseMap extension first.")
+            return
+
+        # Create the "elevation" layer as a sublayer of "Measured Elevation Map"
+        elevation_layer = self.create_sublayer(measured_elevation_map_layer, "elevation")
         
         # Retrieve the custom namespaced geodata element for center coordinates
         geo_data = svg_root.find('svg:metadata/inkscape:geodata', inkex.NSS)
