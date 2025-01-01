@@ -36,6 +36,9 @@ tested on:
 2. inkscape 1.3.2 on windows 10
 
 # Project updates:
+1.1.25:
+1. Aggregated data of precipitation from open-meteo.com and calculating last 20 years avarage (at Primary data)
+2. Refined the process of polygon area calculation 
 
 24.12.24 (after a long stall): 
 1. Layer nameing in basemap extention
