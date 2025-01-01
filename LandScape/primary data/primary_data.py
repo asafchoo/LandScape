@@ -88,7 +88,8 @@ class PrimaryData(inkex.EffectExtension):
             if response.status_code == 200:
                 data = response.json()
                 daily_precipitation = data.get("daily", {}).get("precipitation_sum", [])
-                total_rainfall += sum(daily_precipitation)
+                # Filter out None values and sum the valid precipitation data
+                total_rainfall += sum(value for value in daily_precipitation if value is not None)
                 years_counted += 1
             else:
                 inkex.errormsg(f"Failed to fetch data for {year}: HTTP {response.status_code}")

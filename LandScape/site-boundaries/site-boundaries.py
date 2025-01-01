@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
 import inkex
 from lxml import etree
-from inkex import Rectangle, Layer
-from inkex.paths import Path
+from inkex import Layer
 import uuid
 
 INKSCAPE_NS = 'http://www.inkscape.org/namespaces/inkscape'
@@ -25,18 +23,25 @@ class SiteBoundaries(inkex.EffectExtension):
             if not path_data.endswith('Z'):
                 inkex.errormsg("Please select a closed polygon.")
                 return
-        
+
         # Calculate the area of the polygon in square meters
         area_m2 = self.calculate_area(obj.path.to_superpath(), scale_factor)
         area_m2 = round(area_m2, 0)
         inkex.utils.debug(f"The area of the selected polygon is: {area_m2} m²")
 
-        # Create a new layer called "site boundaries"
-        site_boundaries_layer = self.create_layer("site boundaries")
-        
-        # Move the polygon to the new layer
+        # Find or create the "Base Map" layer
+        base_map_layer = self.find_layer("Base Map")
+        if base_map_layer is None:
+            base_map_layer = self.create_layer("Base Map")
+
+        # Create or find the "site boundaries" sublayer within the "Base Map" layer
+        site_boundaries_layer = self.find_layer("site boundaries", base_map_layer)
+        if site_boundaries_layer is None:
+            site_boundaries_layer = self.create_sublayer(base_map_layer, "site boundaries")
+
+        # Move the polygon to the "site boundaries" sublayer
         site_boundaries_layer.append(obj)
-        
+
         # Get document dimensions
         svg = self.document.getroot()
         doc_width = self.svg.unittouu(svg.get('width'))
@@ -49,7 +54,7 @@ class SiteBoundaries(inkex.EffectExtension):
             'style': "fill:#ffffff;fill-opacity:0.7;stroke:none"
         })
 
-        # Add the rectangle to the layer
+        # Add the rectangle to the "site boundaries" sublayer
         site_boundaries_layer.append(background_rect)
 
         # Create a mask that covers the entire document
@@ -68,48 +73,54 @@ class SiteBoundaries(inkex.EffectExtension):
         mask_polygon = obj.copy()
         mask_polygon.set('style', "fill:#000000;stroke:none")
         mask.append(mask_polygon)
-        
+
         # Add text element to display the area
         text_content = f"Site area: {area_m2} m²"
         text_x = 10  # X-coordinate for text position
         text_y = 20  # Y-coordinate for text position
         self.create_text_element(site_boundaries_layer, text_content, text_x, text_y)
-        
+
         # Apply the mask to the background rectangle
         background_rect.set('mask', f'url(#{mask_id})')
 
     def calculate_area(self, polygon, scale_factor):
         total_area = 0
         for subpath in polygon:
-            # Assuming each subpath is a closed polygon
-            if len(subpath) < 3:  # A polygon must have at least 3 points
+            if len(subpath) < 3:
                 continue
 
-            # Calculate area using the shoelace formula
-            x = [pt[1][0] for pt in subpath]  # X coordinates
-            y = [pt[1][1] for pt in subpath]  # Y coordinates
+            x = [pt[1][0] for pt in subpath]
+            y = [pt[1][1] for pt in subpath]
             area = 0.5 * abs(sum(x[i] * y[i + 1] - x[i + 1] * y[i] for i in range(-1, len(x) - 1)))
             total_area += area
 
-        # Scale the area based on the scale factor
-        scaled_area = total_area / (scale_factor *scale_factor)
+        scaled_area = total_area / (scale_factor ** 2)
         return scaled_area
+
+    def find_layer(self, layer_name, parent=None):
+        parent = self.document.getroot() if parent is None else parent
+        for layer in parent.iterfind('.//{http://www.w3.org/2000/svg}g'):
+            if layer.get(inkex.addNS('label', 'inkscape')) == layer_name:
+                return layer
+        return None
 
     def create_layer(self, layer_name):
         layer = Layer.new(layer_name)
         self.document.getroot().append(layer)
         return layer
 
+    def create_sublayer(self, parent_layer, label):
+        sublayer = etree.SubElement(parent_layer, 'g')
+        sublayer.set(inkex.addNS('label', 'inkscape'), label)
+        sublayer.set(inkex.addNS('groupmode', 'inkscape'), 'layer')
+        return sublayer
+
     def get_scale_factor(self):
         try:
-            # Define the namespace map
             nsmap = {'inkscape': INKSCAPE_NS}
-
-            # Use an XPath expression with the correct namespace to find the scalefactor
             scale_factor_element = self.svg.find('.//inkscape:scalefactor', namespaces=nsmap)
 
             if scale_factor_element is not None and scale_factor_element.text:
-                # Convert the text to a float and return it
                 return float(scale_factor_element.text)
             else:
                 inkex.errormsg("Scale factor not found in the document metadata.")
@@ -117,9 +128,8 @@ class SiteBoundaries(inkex.EffectExtension):
         except Exception as e:
             inkex.errormsg(f"Error retrieving scale factor: {str(e)}")
             return None
-    
+
     def create_text_element(self, layer, text, x, y):
-        """Create a text element and add it to the specified layer."""
         text_element = etree.SubElement(layer, inkex.addNS('text', 'svg'))
         text_element.text = text
         text_element.set('x', str(x))
