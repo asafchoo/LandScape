@@ -1,7 +1,7 @@
 *(last edit 8.1.25)*
 
 ## LandScape Workflow ##
-Primary Data > '*Base Map*' > Scaling > Elevation > Site Boundaries 
+Primary Data > _*Base Map*_ > Scaling > Elevation > Site Boundaries 
 
 # Base Map 
 https://www.patreon.com/LandScape_Permaculture
