@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>6. Structure information</name>
+    <id>user.structureinformation</id>
+    <menu-tip>Structure information</menu-tip>
+    <param name="text" type="description">For each structure (one at a time) there will be several layers of information generated: size calculated, Shadow casts in high winter and high summer, Roof water collection. </param>
+	<param name="heightofstructure" type="string" label="height of structure" gui-text="Height of the structure (in meters)?">00</param>
+
+
+	<separator />
+	<separator />
+
+    <effect needs-live-preview="false">
+        <effects-menu>
+            <menu name="LandScape"/>
+        </effects-menu>
+        <object-type>all</object-type>
+    </effect>
+<label xml:space="preserve"> LandScape is Open Source and free.If you think LandScape is helpful, consider supporting me at:</label>
+<label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
+    
+    <script>
+        <command location="inx" interpreter="python">structure-information.py</command>
+    </script>
+</inkscape-extension>
