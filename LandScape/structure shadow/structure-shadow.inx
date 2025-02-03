@@ -3,12 +3,11 @@
     <name>7. structure shadow</name>
     <id>user.structureshadow</id>
     <menu-tip>Structure Shadow</menu-tip>
-    <param name="text" type="description">For each structure (one at a time) there will be several layers of information generated: size calculated, Shadow casts in high winter and high summer, Roof water collection. </param>
-	<param name="heightofstructure" type="string" label="height of structure" gui-text="Height of the structure (in meters)?">00</param>
-
-
-	<separator />
-	<separator />
+    <param name="text" type="description">
+        For each structure (one at a time) there will be several layers of information generated: size calculated, shadow casts in high winter and high summer, Roof water collection.
+    </param>
+    <param name="heightofstructure" type="string" label="Height of Structure" gui-text="Height of the structure (in meters)?">00</param>
+    <separator />
 
     <effect needs-live-preview="false">
         <effects-menu>
@@ -16,8 +15,11 @@
         </effects-menu>
         <object-type>all</object-type>
     </effect>
-<label xml:space="preserve"> LandScape is Open Source and free.If you think LandScape is helpful, consider supporting me at:</label>
-<label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
+    
+    <label xml:space="preserve">
+        LandScape is Open Source and free. If you think LandScape is helpful, consider supporting me at:
+    </label>
+    <label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
     
     <script>
         <command location="inx" interpreter="python">structure-shadow.py</command>
