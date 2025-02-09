@@ -12,11 +12,13 @@ As for now there are four extensions that needs to be processed one after the ot
 
 ## 1. Primary data
 Collects several needed pieces of information about the plot at hand, and creates the base map layers.
+
 takes:
    * size of actual physical map (when you'll maybe want to print it at the end)
    * geo location (latitude and longtitude) and centers the map around that point (get it from google maps or oter GPS tool)
    * zoom level (in correlation of how google maps are using it)
    * precipitation annual avrage (if field is empty. it will take it from a global open api service but that's not very accurate, so...)
+
 do:
   * place google map imagery according to the GPS and zoom level)
   * create a set of layers and sub-layers in a permaculture structure logic
