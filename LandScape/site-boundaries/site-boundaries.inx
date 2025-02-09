@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>4. Site boundaries</name>
+    <id>user.siteboundaries</id>
+    <menu-tip>Site Boundaries</menu-tip>
+    <param name="text" type="description">Calculate the area of a selected polygon and create site boundaries.</param>
+	<separator />
+	<separator />
+
+<label xml:space="preserve">
+
+
+
+LandScape is Open Source and free.
+If you think LandScape is helpful, consider supporting me at:</label>
+<label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
+
+
+    <effect needs-live-preview="false">
+        <effects-menu>
+            <menu name="LandScape"/>
+        </effects-menu>
+        <object-type>all</object-type>
+    </effect>
+    <script>
+        <command location="inx" interpreter="python">site-boundaries.py</command>
+    </script>
+</inkscape-extension>

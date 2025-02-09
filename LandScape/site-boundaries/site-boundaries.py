@@ -35,9 +35,9 @@ class SiteBoundaries(inkex.EffectExtension):
             base_map_layer = self.create_layer("Base Map")
 
         # Create or find the "site boundaries" sublayer within the "Base Map" layer
-        site_boundaries_layer = self.find_layer("site boundaries", base_map_layer)
+        site_boundaries_layer = self.find_layer("Site Boundaries", base_map_layer)
         if site_boundaries_layer is None:
-            site_boundaries_layer = self.create_sublayer(base_map_layer, "site boundaries")
+            site_boundaries_layer = self.create_sublayer(base_map_layer, "Site Boundaries")
 
         # Move the polygon to the "site boundaries" sublayer
         site_boundaries_layer.append(obj)
