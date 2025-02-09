@@ -11,8 +11,18 @@ soon...
 As for now there are four extensions that needs to be processed one after the other (they are numbered in the LandScape submenu at the "Extensions" menu inside inkscape. 
 
 ## 1. Primary data
-Collects several needed facts about the plot at hand. will be update along the way, including GEO data for retriving stuff from google maps API
+Collects several needed pieces of information about the plot at hand, and creates the base map layers.
+takes:
+   * size of actual physical map (when you'll maybe want to print it at the end)
+   * geo location (latitude and longtitude) and centers the map around that point (get it from google maps or oter GPS tool)
+   * zoom level (in correlation of how google maps are using it)
+   * precipitation annual avrage (if field is empty. it will take it from a global open api service but that's not very accurate, so...)
+do:
+  * place google map imagery according to the GPS and zoom level)
+  * create a set of layers and sub-layers in a permaculture structure logic
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/JgF1QUInbz0/0.jpg)](https://www.youtube.com/watch?v=JgF1QUInbz0)
+
 ## 2. Base Map
 For now, With out any parameters. it just retreives the google map correct satalite imagery and fix the right document measurments. In the future, will be experimenting with self acquired Arial imagary from drones, as it should be able to use eiter. 
 
