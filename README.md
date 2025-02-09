@@ -40,11 +40,21 @@ do:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/8ZMC5a2uESA/0.jpg)](https://www.youtube.com/watch?v=8ZMC5a2uESA)
 
-## 4. Elevation
-This extention will draw elevation contour lines on the base map. the data is acquired from google elevation maps API service, but it's pretty acurate, as far of the experiments done so far.
+## 3. Elevation
+A neet tool for creating contour lines on top of the map project. 
+
+takes:
+   * Number of points to use in each axis of the matrix of points
+   * Vertical distance between contour line in meters
+   * Threshold & distance between paths - parameters for twick if plotting of contours needs to improve
+
+do:
+  * Creates a contour line grid with the parameter chosen within the layer "Base Map" > "Calculated Elevation Map"
+
 Note: 
-* The extension will use user input for number of points (squered), will define the basic resolution, while the threshold and distance between pathes are needed to clean the defenition between the contour lines. the user can also define the spacing beteen contour lines, between 1m wich will preduce a contour line every 1m, and 10m thgat will preduce contours every 10m. 
-* As for now the process of acquiring the data can take several minutes as it requesting around 40K data points for the plot(!) regardless of the resolution of choice. Eventually it will discard only rounded or close to rounded values so there will be only 10th of the points on the document. but the filteration is done localy so the request can take 3-4 min.
+* The amount of data aquired is large so this process can halt inkscape for several minutes, usually between 2-4, so please be patient.
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/8ZMC5a2uESA/0.jpg)](https://www.youtube.com/watch?v=8ZMC5a2uESA)
 
 ## 5. Site Boundaries
 The Site Boundaries uses a polygon that the designer is marking on the basemap to:
