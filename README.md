@@ -12,7 +12,7 @@ As for now there are four extensions that needs to be processed one after the ot
 
 ## 1. Primary data
 Collects several needed facts about the plot at hand. will be update along the way, including GEO data for retriving stuff from google maps API
-
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/JgF1QUInbz0" title="LandScape: Permaculture Extension for Inkscape - Primary data usage [9.2.25]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ## 2. Base Map
 For now, With out any parameters. it just retreives the google map correct satalite imagery and fix the right document measurments. In the future, will be experimenting with self acquired Arial imagary from drones, as it should be able to use eiter. 
 
