@@ -1,20 +1,18 @@
-<?xml version="1.0" xml:lang="en" encoding="UTF-8"?>
-<inkscape-extension  priority="1"  xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension priority="1" xmlns="http://www.inkscape.org/namespace/inkscape/extension">
   <name>1. Primary Data</name>
   <id>user.primarydata</id>
   <menu-tip>The first step is to input some basic information about the basic setting of the project</menu-tip>
-  <param name="text" type="description">the first step is to input some basic information about the basic setting of the project</param>
+  <param name="text" type="description">The first step is to input some basic information about the basic setting of the project</param>
   <separator />
   
-       <param name="text" xml:lang="en" type="description">Document Settings:</param>
-  <param name="widthofdoc" xml:lang="en" type="string" label="width of document" gui-text="what will be the width of the document? (in mm)">00</param>
-  <param name="heightofdoc" xml:lang="en" type="string"  label="height of document" gui-text="what will be the height of the document? (in mm)">00</param>
+  <param name="text" xml:lang="en" type="description">Document Settings:</param>
+  <param name="widthofdoc" xml:lang="en" type="string" label="Width of Document" gui-text="What will be the width of the document? (in mm)">00</param>
+  <param name="heightofdoc" xml:lang="en" type="string" label="Height of Document" gui-text="What will be the height of the document? (in mm)">00</param>
   <separator />
-  <label xml:space="preserve">
-  </label>
   <param name="text" type="description">Property Settings:</param>
   <param name="latitude" type="string" label="Latitude" gui-text="What's the latitude?">00.00</param>
-  <param name="longitude" type="string"  label="longitude" gui-text="What's the longitude?">00.00</param>
+  <param name="longitude" type="string" label="Longitude" gui-text="What's the longitude?">00.00</param>
   <param name="zoomlevel" type="enum" label="Zoom Level" gui-text="Select zoom level:">
     <item value="13">13 - ~11000m²</item>
     <item value="14">14 - ~5500m²</item>
@@ -26,25 +24,21 @@
     <item value="20">20 - ~85m²</item>
   </param>
   <separator />
+  <param name="measured_precipitation" type="string" label="Measured Annual Precipitation (mm)" gui-text="If you have measured Precipitation data, please submit it.">
+    <gui-text xml:lang="en">If left blank, LandScape will use online data for estimation.</gui-text>
+  </param>
+  <separator />
 
+  <label>LandScape is Open Source and free. If you think LandScape is helpful, consider supporting me at:</label>
+  <label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
 
-<label xml:space="preserve">
-
-
-
-LandScape is Open Source and free.
-If you think LandScape is helpful, consider supporting me at:</label>
-<label appearance="url">https://www.patreon.com/LandScape_Permaculture</label>
-
-
-<effect needs-live-preview="false">
-   <effects-menu>
-            <menu name="LandScape"/>
-        </effects-menu>
+  <effect needs-live-preview="false">
+    <effects-menu>
+      <menu name="LandScape"/>
+    </effects-menu>
     <object-type>all</object-type>
-     </effect>
-    <script>
-      <command location="inx" interpreter="python">primary_data.py</command>
-    </script>
-
+  </effect>
+  <script>
+    <command location="inx" interpreter="python">primary_data.py</command>
+  </script>
 </inkscape-extension>
