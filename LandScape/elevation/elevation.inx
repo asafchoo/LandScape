@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inkscape-extension priority="4" xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-<name>4. Elevation</name>
+<name>3. Elevation</name>
 <id>user.Elevation</id>
  <menu-tip>Elevation: Genetrate elevation contour lines</menu-tip>
     <param name="text" type="description">Elevation: Genetrate elevation contour lines</param>
