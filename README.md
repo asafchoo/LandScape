@@ -54,7 +54,7 @@ do:
 Note: 
 * The amount of data aquired is large so this process can halt inkscape for several minutes, usually between 2-4, so please be patient.
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/8ZMC5a2uESA/0.jpg)](https://www.youtube.com/watch?v=8ZMC5a2uESA)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/nrjLl_p6_V8/0.jpg)](https://www.youtube.com/watch?v=nrjLl_p6_V8)
 
 ## 5. Site Boundaries
 The Site Boundaries uses a polygon that the designer is marking on the basemap to:
