@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-    <name>6. Precipitation Volume Calculator</name>
+    <name>5. Precipitation Volume Calculator</name>
 	<id>user.precipitation</id>
 	 <menu-tip>Precipitation: Calculate Precipitation Volume</menu-tip>
     <param name="help" type="description">
