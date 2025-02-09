@@ -33,15 +33,15 @@ class ElevationMapExtension(inkex.Effect):
         doc_width = self.svg.unittouu(svg_root.get('width'))
         doc_height = self.svg.unittouu(svg_root.get('height'))
         
-        # Locate the "Measured Elevation Map" layer created by the BaseMap extension
-        measured_elevation_map_layer = self.find_layer(svg_root, "Measured Elevation Map")
+        # Locate the "Calculated Elevation Map" layer created by the BaseMap extension
+        Calculated_elevation_map_layer = self.find_layer(svg_root, "Calculated Elevation Map")
 
-        if measured_elevation_map_layer is None:
-            inkex.errormsg("Measured Elevation Map layer not found. Please run the BaseMap extension first.")
+        if Calculated_elevation_map_layer is None:
+            inkex.errormsg("Calculated Elevation Map layer not found. Please run the BaseMap extension first.")
             return
 
-        # Create the "elevation" layer as a sublayer of "Measured Elevation Map"
-        elevation_layer = self.create_sublayer(measured_elevation_map_layer, "elevation")
+        # Create the "elevation" layer as a sublayer of "Calculated Elevation Map"
+        elevation_layer = self.create_sublayer(Calculated_elevation_map_layer, "elevation")
         
         # Retrieve the custom namespaced geodata element for center coordinates
         geo_data = svg_root.find('svg:metadata/inkscape:geodata', inkex.NSS)
@@ -305,9 +305,6 @@ class ElevationMapExtension(inkex.Effect):
                 closest_distance = distance
                 closest_point = point
         return closest_point
-
-    def distance_between_points(self, p1, p2):
-        return math.sqrt((p1['x'] - p2['x'])**2 + (p1['y'] - p2['y'])**2)
 
     def create_path_element(self, points, color):
         if not points:
