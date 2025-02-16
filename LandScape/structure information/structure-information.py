@@ -5,20 +5,7 @@ import math
 INKSCAPE_NS = 'http://www.inkscape.org/namespaces/inkscape'
 
 class Structureinformation(inkex.EffectExtension):
-    def add_arguments(self, pars):
-        pars.add_argument("--heightofstructure", type=str, default="0", help="Height of the structure (in meters).")
-
     def effect(self):
-        # Retrieve and validate the height input
-        height_str = self.options.heightofstructure
-        try:
-            structure_height = float(height_str)
-            if structure_height <= 0:
-                raise ValueError("Height must be greater than zero.")
-        except ValueError:
-            inkex.errormsg("Invalid height. Please enter a positive numeric value.")
-            return
-
         # Get the selected polygon
         polygon = next(iter(self.svg.selected.values()), None)
         if polygon is None or polygon.tag != inkex.addNS('path', 'svg'):
