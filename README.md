@@ -62,12 +62,25 @@ The Site Boundaries tool masures the sites plot size and focus on it.
 takes:
   * a path polygon drawn all around the plot, as accuratly as possible.
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/......./0.jpg)](https://www.youtube.com/watch?v=......)
 do:
   * calculate the size of the plot
   * creates a opac layer that help to focus on the design plot without trimming neighboring plots that might be needed in the future.
   * prints the size of the plot on the left corner of the site boundaries layer 
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/VFBRRd1N17w/0.jpg)](https://www.youtube.com/watch?v=VFBRRd1N17w)
+
+## 5. Precipitation Calculator
+Estimate the amount of annual rainfall for a given area.
+
+takes:
+  * A drawn polygon under the "Precipitation" layer
+  * location data
+  * annual rainfall data
+  * scale
+
+do:
+  * change the name of the polygon object to the annual rainfall that this polygon can aproximatly harvest.
 
 # compatability
 tested on:
