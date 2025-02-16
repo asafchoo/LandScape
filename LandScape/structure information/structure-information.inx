@@ -3,11 +3,8 @@
     <name>6. Structure information</name>
     <id>user.structureinformation</id>
     <menu-tip>Structure information</menu-tip>
-    <param name="text" type="description">For each structure (one at a time) there will be several layers of information generated: size calculated, Shadow casts in high winter and high summer, Roof water collection. </param>
-	<param name="heightofstructure" type="string" label="height of structure" gui-text="Height of the structure (in meters)?">00</param>
+    <param name="text" type="description">For each structure (one at a time) there will be several layers of information generated: size calculated, and Roof water collection. </param>
 
-
-	<separator />
 	<separator />
 
     <effect needs-live-preview="false">
