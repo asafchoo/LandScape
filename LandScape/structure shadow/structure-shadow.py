@@ -34,7 +34,6 @@ class StructureShadow(inkex.EffectExtension):
         if longitude is None:
             inkex.errormsg("Longitude not found in metadata.")
             return
-
         scale_factor = self.get_scale_factor()
         if scale_factor is None:
             inkex.errormsg("Scale factor not found in metadata.")
@@ -62,36 +61,28 @@ class StructureShadow(inkex.EffectExtension):
         winter_layer = self.create_shadow_layer(parent_layer, "Winter Shadow")
         summer_layer = self.create_shadow_layer(parent_layer, "Summer Shadow")
 
-        # For simplicity, we assume local_utc_offset = 0.
-        local_utc_offset = 0
-
         # Process each time for the winter shadows.
         for t in winter_times:
             dt_str = f"{winter_date} {t}"
-            shadow_length, sun_azimuth, shadow_datetime = self.compute_shadow(
-                latitude, structure_height, longitude, local_utc_offset, dt_str)
+            # Compute shadow using our new compute_shadow (which auto-gets the UTC offset)
+            shadow_length, sun_azimuth, shadow_datetime = self.compute_shadow(latitude, structure_height, longitude, dt_str)
             if shadow_datetime is None:
                 continue
             shadow_offset = shadow_length * scale_factor
-            orig_shadow, off_shadow = self.create_shadow_polygons(polygon, winter_layer,
-                                                                   shadow_offset, sun_azimuth)
+            orig_shadow, off_shadow = self.create_shadow_polygons(polygon, winter_layer, shadow_offset, sun_azimuth)
             self.extrude_between_shadows(winter_layer, orig_shadow, off_shadow, shadow_datetime)
-            inkex.utils.debug(f"Winter shadow at {self.get_shadow_time(shadow_datetime)}: "
-                              f"length = {shadow_length}, azimuth = {sun_azimuth}")
+            inkex.utils.debug(f"Winter shadow at {self.get_shadow_time(shadow_datetime)}: length = {shadow_length}, azimuth = {sun_azimuth}")
 
         # Process each time for the summer shadows.
         for t in summer_times:
             dt_str = f"{summer_date} {t}"
-            shadow_length, sun_azimuth, shadow_datetime = self.compute_shadow(
-                latitude, structure_height, longitude, local_utc_offset, dt_str)
+            shadow_length, sun_azimuth, shadow_datetime = self.compute_shadow(latitude, structure_height, longitude, dt_str)
             if shadow_datetime is None:
                 continue
             shadow_offset = shadow_length * scale_factor
-            orig_shadow, off_shadow = self.create_shadow_polygons(polygon, summer_layer,
-                                                                   shadow_offset, sun_azimuth)
+            orig_shadow, off_shadow = self.create_shadow_polygons(polygon, summer_layer, shadow_offset, sun_azimuth)
             self.extrude_between_shadows(summer_layer, orig_shadow, off_shadow, shadow_datetime)
-            inkex.utils.debug(f"Summer shadow at {self.get_shadow_time(shadow_datetime)}: "
-                              f"length = {shadow_length}, azimuth = {sun_azimuth}")
+            inkex.utils.debug(f"Summer shadow at {self.get_shadow_time(shadow_datetime)}: length = {shadow_length}, azimuth = {sun_azimuth}")
 
         # --- Remove any empty "Combined Shadow" groups from the shadow layers ---
         self.remove_empty_combined_layers(winter_layer)
@@ -99,16 +90,44 @@ class StructureShadow(inkex.EffectExtension):
 
         inkex.utils.debug("Shadow processing completed. The original structure remains unchanged.")
 
-    def compute_shadow(self, latitude, height, longitude, local_utc_offset, date_time_str):
+    def get_google_utc_offset(self, lat, lon, date_str):
+        """
+        Use the Google Time Zone API to get the UTC offset (in hours) for the given location and date.
+        date_str is in the format "YYYY-MM-DD".
+        """
+        # Use noon (12:00) on the given date for the timestamp.
+        dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        dt = dt.replace(hour=12, minute=0, second=0)
+        timestamp = int(dt.timestamp())
+        api_key = "AIzaSyDAblLSzOE_u7wS2OiPrQgsu_z4cdcIBU0"
+        url = f"https://maps.googleapis.com/maps/api/timezone/json?location={lat},{lon}&timestamp={timestamp}&key={api_key}"
+        context = ssl._create_unverified_context()
+        response = urllib.request.urlopen(url, context=context)
+        data = json.load(response)
+        if data["status"] != "OK":
+            raise Exception("Google Time Zone API error: " + data.get("errorMessage", data["status"]))
+        total_offset = data["rawOffset"] + data["dstOffset"]
+        offset_hours = total_offset / 3600.0
+        inkex.utils.debug(f"Google API: offset for {lat},{lon} on {date_str} is {offset_hours} hours")
+        return offset_hours
+
+    def compute_shadow(self, latitude, height, longitude, date_time_str):
         """
         Compute the solar geometry (shadow length and sun azimuth) for a given
-        date and time (as a string "YYYY-MM-DD HH:MM"). Returns (shadow_length, sun_azimuth, shadow_datetime).
+        date and time (as a string "YYYY-MM-DD HH:MM").
+        Returns (shadow_length, sun_azimuth, shadow_datetime).
         """
         try:
             shadow_datetime = datetime.datetime.strptime(date_time_str, "%Y-%m-%d %H:%M")
         except ValueError:
             inkex.errormsg("Invalid date/time format in compute_shadow.")
             return 0, 0, None
+
+        # Get the local UTC offset automatically using Google Time Zone API.
+        local_utc_offset = self.get_google_utc_offset(latitude, longitude, date_time_str.split()[0])
+        # Make the shadow_datetime offset-aware.
+        tz_local = datetime.timezone(datetime.timedelta(hours=local_utc_offset))
+        shadow_datetime = shadow_datetime.replace(tzinfo=tz_local)
 
         n = shadow_datetime.timetuple().tm_yday
         decl_deg = 23.45 * math.sin(math.radians(360 * (284 + n) / 365))
@@ -122,18 +141,13 @@ class StructureShadow(inkex.EffectExtension):
             data = json.load(response)
             if data['status'] != 'OK':
                 raise Exception("API error: " + data.get('status', 'Unknown error'))
-            # Parse solar noon (UTC) and convert to local time.
             solar_noon_utc = datetime.datetime.fromisoformat(data['results']['solar_noon'])
             solar_noon_local = solar_noon_utc + datetime.timedelta(hours=local_utc_offset)
             tz_local = datetime.timezone(datetime.timedelta(hours=local_utc_offset))
             solar_noon_local = solar_noon_local.replace(tzinfo=tz_local)
             return solar_noon_local
 
-        # Make the user time offset-aware.
-        tz_local = datetime.timezone(datetime.timedelta(hours=local_utc_offset))
-        shadow_datetime = shadow_datetime.replace(tzinfo=tz_local)
-        solar_noon_local = get_solar_noon_local(latitude, longitude, date_time_str.split()[0],
-                                                local_utc_offset)
+        solar_noon_local = get_solar_noon_local(latitude, longitude, date_time_str.split()[0], local_utc_offset)
         noon = shadow_datetime.replace(hour=12, minute=0, second=0, microsecond=0)
         offset_timedelta = noon - solar_noon_local
         offset_hours = offset_timedelta.total_seconds() / 3600.0
@@ -151,16 +165,14 @@ class StructureShadow(inkex.EffectExtension):
             tan_alt = 1e-6
         shadow_length = height / tan_alt
 
-        cos_az = (math.sin(decl) - math.sin(lat_rad) * math.sin(sun_alt_rad)) / \
-                 (math.cos(lat_rad) * math.cos(sun_alt_rad))
+        cos_az = (math.sin(decl) - math.sin(lat_rad) * math.sin(sun_alt_rad)) / (math.cos(lat_rad) * math.cos(sun_alt_rad))
         cos_az = max(min(cos_az, 1), -1)
         az_rad = math.acos(cos_az)
         if hour_angle > 0:
             az_rad = 2 * math.pi - az_rad
         sun_azimuth = math.degrees(az_rad)
 
-        inkex.utils.debug(f"Computed {date_time_str}: sun altitude = {math.degrees(sun_alt_rad):.2f}°, "
-                          f"HA = {hour_angle_deg:.2f}°")
+        inkex.utils.debug(f"Computed {date_time_str}: sun altitude = {math.degrees(sun_alt_rad):.2f}°, HA = {hour_angle_deg:.2f}°")
         return shadow_length, sun_azimuth, shadow_datetime
 
     def get_shadow_time(self, shadow_datetime):
@@ -237,7 +249,6 @@ class StructureShadow(inkex.EffectExtension):
         """
         Remove every direct child of the provided shadow_layer whose label is "Combined Shadow".
         """
-        # Use a list() to iterate over a static copy of the children.
         for child in list(shadow_layer):
             if child.tag == inkex.addNS('g', 'svg'):
                 label = child.get(inkex.addNS('label', 'inkscape'))
