@@ -135,6 +135,7 @@ class PrimaryData(inkex.EffectExtension):
             "Sectors": ["Sun Path", "Wind Patterns", "Noise/Visibility Zones"],
             "Zones": ["Zone 0", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"],
             "Structures": ["Existing Structures", "Planned Structures", "Temporary Structures"],
+            "Earthworks": ["Roads","Swales","Dams"],
             "Energy": ["Solar","Wind","Hidro","Biogas","Biomass"],
             "Vegetation": ["Existing Vegetation", "Annual Gardens", "Orchards", "Companion Planting"],
             "Animals": ["Grazing Areas", "Animal Shelters", "Movement Paths"],
