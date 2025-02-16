@@ -11,12 +11,12 @@ class PrecipitationExtension(inkex.EffectExtension):
 
         # Retrieve precipitation value (mm/year) from metadata
         geo_data = self.document.getroot().find('svg:metadata/inkscape:geodata', inkex.NSS)
-        if geo_data is None or 'Precipitation' not in geo_data.attrib:
+        if geo_data is None or 'annual_rainfall_avg' not in geo_data.attrib:
             inkex.errormsg("Precipitation value not found in metadata.")
             return
 
         try:
-            precipitation_mm = float(geo_data.get('Precipitation'))
+            precipitation_mm = float(geo_data.get('annual_rainfall_avg'))
         except ValueError:
             inkex.errormsg("Invalid precipitation value in metadata.")
             return
@@ -31,13 +31,13 @@ class PrecipitationExtension(inkex.EffectExtension):
                 area_m2 = self.calculate_area(obj.path.to_superpath(), scale_factor)
                 if area_m2 is None:
                     continue
-
+                
                 # Calculate precipitation volume (m^3)
                 volume_m3 = area_m2 * (precipitation_mm / 1000)  # Convert mm to meters
-
                 # Rename the polygon with the calculated precipitation volume and area
+                inkex.utils.debug(f"The annual precipitation [{precipitation_mm:.2f}mm] within the chosen polygon of [{area_m2:.2f}m²] is: {volume_m3:.2f} m³/year")
                 obj.set(inkex.addNS('label', 'inkscape'), f"{volume_m3:.2f} m³/year [{area_m2:.2f}m²]")
-
+        
     def find_layer(self, label):
         """Find a layer by its label."""
         layers = self.document.getroot().xpath(
