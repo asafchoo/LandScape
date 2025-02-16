@@ -83,6 +83,21 @@ do:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/GyxEYZd6Skw/0.jpg)](https://www.youtube.com/watch?v=GyxEYZd6Skw)
 
+## 6. Structure information & Shadow casting
+Generate specific information and shadow casting of a specific structure on site.
+
+takes:
+  * A polygon that represent a structure on site.
+  * Height of structure
+  * Location data and scale calibration
+
+Do:
+  * calculate surface of structure
+  * Calculate roof rain catchment area and volume.
+  * Cast shadow of structure on winter & summer solistice on morning, noon & evening.
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/kBJmJJ0zg4I/0.jpg)](https://www.youtube.com/watch?v=kBJmJJ0zg4I)
+
 # Compatability
 tested on:
 1. inkscape 1.3 & Inkscape 1.4 (86a8ad7, 2024-10-11) on windows 11
