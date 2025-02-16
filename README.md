@@ -81,8 +81,9 @@ takes:
 do:
   * change the name of the polygon object to the annual rainfall that this polygon can aproximatly harvest.
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/GyxEYZd6Skw/0.jpg)](https://www.youtube.com/watch?v=GyxEYZd6Skw)
 
-# compatability
+# Compatability
 tested on:
-1. inkscape 1.3 on windows 11
+1. inkscape 1.3 & Inkscape 1.4 (86a8ad7, 2024-10-11) on windows 11
 2. inkscape 1.3.2 on windows 10
