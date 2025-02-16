@@ -41,7 +41,7 @@ do:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/8ZMC5a2uESA/0.jpg)](https://www.youtube.com/watch?v=8ZMC5a2uESA)
 
 ## 3. Elevation
-A neet tool for creating contour lines on top of the map project. 
+A neat tool for creating contour lines on top of the map project. 
 
 takes:
    * Number of points to use in each axis of the matrix of points
@@ -56,30 +56,20 @@ Note:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/nrjLl_p6_V8/0.jpg)](https://www.youtube.com/watch?v=nrjLl_p6_V8)
 
-## 5. Site Boundaries
-The Site Boundaries uses a polygon that the designer is marking on the basemap to:
-1. calculate the site area in square meters and print it on the document
-2. fadeout everything that is not within the site. 
+## 4. Site Boundaries
+The Site Boundaries tool masures the sites plot size and focus on it.
+
+takes:
+  * a path polygon drawn all around the plot, as accuratly as possible.
+
+do:
+  * calculate the size of the plot
+  * creates a opac layer that help to focus on the design plot without trimming neighboring plots that might be needed in the future.
+  * prints the size of the plot on the left corner of the site boundaries layer 
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/VFBRRd1N17w/0.jpg)](https://www.youtube.com/watch?v=VFBRRd1N17w)
 
 # compatability
 tested on:
 1. inkscape 1.3 on windows 11
 2. inkscape 1.3.2 on windows 10
-
-# Project updates:
-1.1.25:
-1. Aggregated data of precipitation from open-meteo.com and calculating last 20 years avarage (at Primary data)
-2. Refined the process of polygon area calculation 
-
-24.12.24 (after a long stall): 
-1. Layer nameing in basemap extention
-2. Layer nameing and optimizing object creation on scale extention
-
-**15.12.23: added functionality - Site Boundaries**
-
-10.12.23: inx's file update.
-
-29.11.23: first code upload.
-
-## TODO:
-**Precipitation** - a tool that will take a predefined polygon, will move it to a new layer (if it's not already on that layer), take the yearly Precipitation data, and calculate the Precipitation that will fall yearly on that polygon 
