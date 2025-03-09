@@ -6449,6 +6449,24 @@
            id="use36274" />
       </g>
     </symbol>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3-0">
+      <path
+         id="path3-9"
+         style="opacity:0.587852;stroke:#ffffff;stroke-width:4.25197"
+         d="m 147.58906,361.73436 413.97222,-15.94174 c 23.05854,38.37666 31.58308,85.21083 -0.88855,127.06213 l -416.58013,7.84883 c -7.76227,-18.54113 -14.85494,-37.81757 -16.80489,-56.31399 -0.1214,-1.15162 -26.06562,-2.09096 -26.07118,-0.93686 -0.0367,7.618 -27.238238,14.36048 -26.503217,-4.69306 0.560294,-14.5242 19.254163,-14.61062 26.582487,-6.01516 0,0 15.99926,-1.83181 24.46003,-2.93392 1.02999,-19.89348 12.3635,-37.01342 21.83323,-48.07623 z"
+         sodipodi:nodetypes="ccccsssccc" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1">
+      <path
+         id="path1"
+         style="opacity:0.587852;stroke:#ffffff;stroke-width:4.25197"
+         d="m 147.58906,361.73436 413.97222,-15.94174 c 23.05854,38.37666 31.58308,85.21083 -0.88855,127.06213 l -416.58013,7.84883 c -7.76227,-18.54113 -14.85494,-37.81757 -16.80489,-56.31399 -0.1214,-1.15162 -26.06562,-2.09096 -26.07118,-0.93686 -0.0367,7.618 -27.238238,14.36048 -26.503217,-4.69306 0.560294,-14.5242 19.254163,-14.61062 26.582487,-6.01516 0,0 15.99926,-1.83181 24.46003,-2.93392 1.02999,-19.89348 12.3635,-37.01342 21.83323,-48.07623 z"
+         sodipodi:nodetypes="ccccsssccc" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -6458,8 +6476,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="-121.97592"
-     inkscape:cy="269.40768"
+     inkscape:cx="123.39013"
+     inkscape:cy="286.37824"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -6467,7 +6485,7 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
-     inkscape:window-x="1016"
+     inkscape:window-x="2936"
      inkscape:window-y="193"
      inkscape:window-maximized="1"
      inkscape:showpageshadow="0"
