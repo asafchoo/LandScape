@@ -205,7 +205,7 @@ class ElevationMapExtension(inkex.Effect):
             inkex.errormsg("Scale factor not found or has no value.")
             return None
             
-    def distance_between_points(p1, p2):
+    def distance_between_points(self, p1, p2):
         return math.sqrt((p1['x'] - p2['x'])**2 + (p1['y'] - p2['y'])**2)
     
     def find_closest_point(current_point, points):
