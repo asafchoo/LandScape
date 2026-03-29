@@ -1,0 +1,124 @@
+/* LandScape Green Theme - Custom GTK Theme for Inkscape */
+/* Override default GTK colors to LandScape green palette */
+
+@import url("resource:///org/inkscape/Adwaita/gtk.css");
+
+/* Main window background */
+window {
+    background-color: #1a3d1a;
+    color: #e8f5e9;
+}
+
+/* Headers and titlebars */
+headerbar {
+    background-color: #2d5a2d;
+    color: #ffffff;
+    border-bottom: 1px solid #4a7a4a;
+}
+
+/* All widgets - green background */
+* {
+    background-color: #2d5a2d;
+    color: #e8f5e9;
+    border-color: #4a7a4a;
+}
+
+/* Entries and text inputs */
+entry, textview {
+    background-color: #3a6a3a;
+    color: #ffffff;
+    border: 1px solid #4a7a4a;
+}
+
+entry:focus, textview:focus {
+    border: 1px solid #5a9a5a;
+}
+
+/* Buttons */
+button {
+    background-color: #3a6a3a;
+    color: #ffffff;
+    border: 1px solid #4a7a4a;
+}
+
+button:hover {
+    background-color: #4a7a4a;
+}
+
+button:active {
+    background-color: #1a3d1a;
+}
+
+button:checked {
+    background-color: #2d5a2d;
+    border-color: #5a9a5a;
+}
+
+/* Scrollbars */
+scrollbar slider {
+    background-color: #4a7a4a;
+    border: 1px solid #5a8a5a;
+}
+
+scrollbar slider:hover {
+    background-color: #5a9a5a;
+}
+
+/* Selection highlight */
+selection {
+    background-color: #4a7a4a;
+}
+
+/* Menu and popovers */
+menu, popover {
+    background-color: #2d5a2d;
+    color: #e8f5e9;
+    border: 1px solid #4a7a4a;
+}
+
+menuitem:hover {
+    background-color: #4a7a4a;
+}
+
+/* Notebook and tabs */
+notebook {
+    background-color: #1a3d1a;
+}
+
+notebook tab {
+    background-color: #2d5a2d;
+    color: #e8f5e9;
+}
+
+notebook tab:checked {
+    background-color: #3a6a3a;
+    border-bottom: 2px solid #5a9a5a;
+}
+
+/* Separator */
+separator {
+    background-color: #4a7a4a;
+}
+
+/* Scale sliders */
+scale slider {
+    background-color: #4a7a4a;
+}
+
+scale trough {
+    background-color: #1a3d1a;
+}
+
+/* Frame and box */
+frame {
+    border-color: #4a7a4a;
+}
+
+box {
+    background-color: #2d5a2d;
+}
+
+/* Links */
+label:link {
+    color: #7fcc7f;
+}
