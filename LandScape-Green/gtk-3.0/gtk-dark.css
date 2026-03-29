@@ -1,0 +1,130 @@
+/* LandScape Green Theme - Dark Mode */
+/* Override default GTK dark colors to LandScape green palette */
+
+@import url("resource:///org.inkscape/inkscape/themes/Minwaita-Inkscape/gtk-3.0/gtk-dark.css");
+
+/* Main window background - dark green */
+window {
+    background-color: #1a2e1a;
+    color: #e8f5e9;
+}
+
+/* Headers and titlebars - medium dark green */
+headerbar {
+    background-color: #1b3d1b;
+    color: #ffffff;
+    border-bottom: 1px solid #3d5c3d;
+}
+
+/* All widgets - green tones */
+* {
+    background-color: #2d5a2d;
+    color: #e8f5e9;
+    border-color: #3d5c3d;
+}
+
+/* Entries and text inputs */
+entry, textview {
+    background-color: #1f331f;
+    color: #e8f5e9;
+    border: 1px solid #3d5c3d;
+}
+
+entry:focus, textview:focus {
+    border: 1px solid #4caf50;
+}
+
+/* Buttons */
+button {
+    background-color: #2e5028;
+    color: #ffffff;
+    border: 1px solid #3d5c3d;
+}
+
+button:hover {
+    background-color: #3a6632;
+}
+
+button:active {
+    background-color: #1a2e1a;
+}
+
+button:checked {
+    background-color: #1b3d1b;
+    border-color: #4caf50;
+}
+
+/* Scrollbars */
+scrollbar slider {
+    background-color: #3d5c3d;
+    border: 1px solid #4a7a4a;
+}
+
+scrollbar slider:hover {
+    background-color: #4caf50;
+}
+
+/* Selection highlight */
+selection {
+    background-color: #2e7d32;
+}
+
+/* Menu and popovers */
+menu, popover {
+    background-color: #1b3d1b;
+    color: #e8f5e9;
+    border: 1px solid #3d5c3d;
+}
+
+menuitem:hover {
+    background-color: #2e7d32;
+}
+
+/* Notebook and tabs */
+notebook {
+    background-color: #1a2e1a;
+}
+
+notebook tab {
+    background-color: #1b3d1b;
+    color: #e8f5e9;
+}
+
+notebook tab:checked {
+    background-color: #2d5a2d;
+    border-bottom: 2px solid #4caf50;
+}
+
+/* Separator */
+separator {
+    background-color: #3d5c3d;
+}
+
+/* Scale sliders */
+scale slider {
+    background-color: #3d5c3d;
+}
+
+scale trough {
+    background-color: #1a2e1a;
+}
+
+/* Frame and box */
+frame {
+    border-color: #3d5c3d;
+}
+
+box {
+    background-color: #2d5a2d;
+}
+
+/* Links */
+label:link {
+    color: #7fcc7f;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #1b5e20;
+    color: #ffffff;
+}

@@ -8,7 +8,7 @@ setlocal enabledelayedexpansion
 
 set "SCRIPT_DIR=%~dp0"
 set "INKSCAPE_EXT=%APPDATA%\inkscape\extensions\LandScape"
-set "INKSCAPE_THEME=%APPDATA%\inkscape\local\themes\LandScape-Green"
+set "INKSCAPE_THEME=%APPDATA%\inkscape\themes\LandScape-Green"
 set "PREFS_FILE=%APPDATA%\inkscape\preferences.xml"
 
 :: ===============================================
@@ -60,8 +60,8 @@ echo.
 echo [2/3] Installing green theme...
 
 :: Create themes directory if needed
-if not exist "%APPDATA%\inkscape\local\themes" (
-    mkdir "%APPDATA%\inkscape\local\themes" >nul 2>&1
+if not exist "%APPDATA%\inkscape\themes" (
+    mkdir "%APPDATA%\inkscape\themes" >nul 2>&1
 )
 
 :: Copy theme folder

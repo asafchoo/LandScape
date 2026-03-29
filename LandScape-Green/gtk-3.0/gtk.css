@@ -1,7 +1,7 @@
 /* LandScape Green Theme - Custom GTK Theme for Inkscape */
 /* Override default GTK colors to LandScape green palette */
 
-@import url("resource:///org/inkscape/Adwaita/gtk.css");
+@import url("resource:///org.inkscape/inkscape/themes/Minwaita-Inkscape/gtk-3.0/gtk.css");
 
 /* Main window background */
 window {
