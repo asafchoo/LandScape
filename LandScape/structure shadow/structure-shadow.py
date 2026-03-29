@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
+import os
 import inkex
 from lxml import etree
 import math
 import datetime
 import urllib.request, json, ssl
+import requests
+
+# API Proxy URL
+PROXY_URL = os.environ.get('LANDSCAPE_API_PROXY', 'https://landscape.idea-o-mator.com/api/proxy.php')
 
 class StructureShadow(inkex.EffectExtension):
     def add_arguments(self, pars):
@@ -99,11 +104,23 @@ class StructureShadow(inkex.EffectExtension):
         dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
         dt = dt.replace(hour=12, minute=0, second=0)
         timestamp = int(dt.timestamp())
-        api_key = "AIzaSyDAblLSzOE_u7wS2OiPrQgsu_z4cdcIBU0"
-        url = f"https://maps.googleapis.com/maps/api/timezone/json?location={lat},{lon}&timestamp={timestamp}&key={api_key}"
-        context = ssl._create_unverified_context()
-        response = urllib.request.urlopen(url, context=context)
-        data = json.load(response)
+        
+        if PROXY_URL:
+            response = requests.post(
+                PROXY_URL,
+                json={
+                    'endpoint': 'timezone',
+                    'params': {'location': f'{lat},{lon}', 'timestamp': timestamp}
+                },
+                headers={'Content-Type': 'application/json'},
+                timeout=30
+            )
+            data = response.json()
+        else:
+            api_key = os.environ.get('LANDSCAPE_GOOGLE_API_KEY', '')
+            url = f"https://maps.googleapis.com/maps/api/timezone/json?location={lat},{lon}&timestamp={timestamp}&key={api_key}"
+            response = urllib.request.urlopen(url)
+            data = json.load(response)
         if data["status"] != "OK":
             raise Exception("Google Time Zone API error: " + data.get("errorMessage", data["status"]))
         total_offset = data["rawOffset"] + data["dstOffset"]
@@ -135,10 +152,21 @@ class StructureShadow(inkex.EffectExtension):
 
         # --- Solar Time Correction via Sunrise-Sunset API ---
         def get_solar_noon_local(lat, lon, date_str, local_utc_offset):
-            url = f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={date_str}&formatted=0"
-            context = ssl._create_unverified_context()
-            response = urllib.request.urlopen(url, context=context)
-            data = json.load(response)
+            if PROXY_URL:
+                response = requests.post(
+                    PROXY_URL,
+                    json={
+                        'endpoint': 'sunrise-sunset',
+                        'params': {'lat': lat, 'lng': lon, 'date': date_str, 'formatted': '0'}
+                    },
+                    headers={'Content-Type': 'application/json'},
+                    timeout=30
+                )
+                data = response.json()
+            else:
+                url = f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={date_str}&formatted=0"
+                response = urllib.request.urlopen(url)
+                data = json.load(response)
             if data['status'] != 'OK':
                 raise Exception("API error: " + data.get('status', 'Unknown error'))
             solar_noon_utc = datetime.datetime.fromisoformat(data['results']['solar_noon'])

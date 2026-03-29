@@ -8,8 +8,8 @@ import tempfile
 from PIL import Image, ImageFilter, ImageEnhance
 
 INKSCAPE_NS = 'http://www.inkscape.org/namespaces/inkscape'
-api_key = "AIzaSyDAblLSzOE_u7wS2OiPrQgsu_z4cdcIBU0"
-url = "https://maps.googleapis.com/maps/api/staticmap?"
+GOOGLE_API_KEY = os.environ.get('LANDSCAPE_GOOGLE_API_KEY', '')
+PROXY_URL = os.environ.get('LANDSCAPE_API_PROXY', 'https://landscape.idea-o-mator.com/api/proxy.php')
 
 class PrimaryData(inkex.EffectExtension):
     def add_arguments(self, pars):
@@ -159,10 +159,30 @@ class PrimaryData(inkex.EffectExtension):
 
             if lat and lon and zoom:
                 try:
-                    # Fetch the base map image from Google Maps API
-                    response = requests.get(
-                        f"{url}center={lat},{lon}&zoom={zoom}&size=2108x2108&scale=2&maptype=hybrid&key={api_key}"
-                    )
+                    # Fetch the base map image
+                    if PROXY_URL:
+                        # Use proxy
+                        response = requests.post(
+                            PROXY_URL,
+                            json={
+                                'endpoint': 'staticmap',
+                                'params': {
+                                    'center': f'{lat},{lon}',
+                                    'zoom': zoom,
+                                    'size': '2108x2108',
+                                    'scale': '2',
+                                    'maptype': 'hybrid'
+                                }
+                            },
+                            headers={'Content-Type': 'application/json'},
+                            timeout=60
+                        )
+                    else:
+                        # Direct API call (fallback)
+                        url = "https://maps.googleapis.com/maps/api/staticmap?"
+                        response = requests.get(
+                            f"{url}center={lat},{lon}&zoom={zoom}&size=2108x2108&scale=2&maptype=hybrid&key={GOOGLE_API_KEY}"
+                        )
                     if response.status_code == 200:
                         # Save the image temporarily
                         temp = tempfile.NamedTemporaryFile(delete=False)

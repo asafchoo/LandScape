@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
+import os
 import inkex
 import requests
 import math
 from lxml import etree
 import logging
 
-# Set up logging to file
-logging.basicConfig(filename='C:\\Users\\hamaadama\\Desktop\\debug.log', level=logging.DEBUG, filemode='w')
-
 INKSCAPE_NS = 'http://www.inkscape.org/namespaces/inkscape'
+
+# API Proxy URL - set LANDSCAPE_API_PROXY env var, or use default
+PROXY_URL = os.environ.get('LANDSCAPE_API_PROXY', 'https://landscape.idea-o-mator.com/api/proxy.php')
 
 def log(message):
     """Helper function to log a message to the debug.log file."""
@@ -58,16 +59,12 @@ class ElevationMapExtension(inkex.Effect):
         spacing_mm_x = doc_width / (num_points - 1)
         spacing_mm_y = doc_height / (num_points - 1)
 
-        # Google Elevation API Key
-        api_key = 'AIzaSyDAblLSzOE_u7wS2OiPrQgsu_z4cdcIBU0'
-
         # Initialize empty list for storing elevation data and batch requests
         elevation_data = []
-        batch_requests = []
         grid_points = []
         elevation_groups = {}
 
-        # Generate grid points and create batch requests
+        # Generate grid points
         for i in range(num_points):
             for j in range(num_points):
                 # Calculate grid coordinates
@@ -81,53 +78,47 @@ class ElevationMapExtension(inkex.Effect):
                 # Add grid coordinates with corresponding lat-lon to the list
                 grid_points.append((x, y, lat, lon))
 
-        # Create batch requests using grid_points list for Google Elevation API
-        for x, y, lat, lon in grid_points:
-            new_location = f"{lat},{lon}"
-            if len(batch_requests) == 0 or len(batch_requests[-1] + new_location) + 1 >= 8192:
-                batch_requests.append(f"https://maps.googleapis.com/maps/api/elevation/json?locations={new_location}")
-            else:
-                batch_requests[-1] += '|' + new_location
-
-        # Append API key to each request
-        for i in range(len(batch_requests)):
-            batch_requests[i] += f"&key={api_key}"
-
-        # Fetch elevation data in batches
+        # Fetch elevation data via proxy
         grid_point_index = 0
-        for request in batch_requests:
-            batch_elevation_data = self.fetch_elevation_batch(request)
-            for elevation, lat, lon in batch_elevation_data:
-                # Get the corresponding grid point
-                x, y, lat, lon = grid_points[grid_point_index]
-                grid_point_index += 1
-                
-                # Calculate the fractional part of the elevation
-                fractional_part = elevation - int(elevation)
-                
-                # Check if the fractional part is within 0.15 of being a whole number
-                if fractional_part > 0.05 and fractional_part < 0.95:
-                    continue  # Skip this point
         
-                rounded_elevation = self.round_elevation(elevation)
-                contour_gaps = self.options.contour_gaps
-                
-                if rounded_elevation % contour_gaps != 0:
-                    continue # Skip contour 
+        if PROXY_URL:
+            # Use proxy - batch locations
+            locations = [f"{lat},{lon}" for _, _, lat, lon in grid_points]
+            batch_size = 100
+            for batch_start in range(0, len(locations), batch_size):
+                batch_locs = locations[batch_start:batch_start + batch_size]
+                batch_elevation_data = self.fetch_elevation_batch_proxy(batch_locs)
+                for elevation, lat, lon in batch_elevation_data:
+                    # Get the corresponding grid point
+                    x, y, lat, lon = grid_points[grid_point_index]
+                    grid_point_index += 1
                     
-                # Store the data with grid coordinates
-                point_data = {
-                    'elevation': rounded_elevation,
-                    'latitude': lat,
-                    'longitude': lon,
-                    'x': x,
-                    'y': y
-                }
+                    # Calculate the fractional part of the elevation
+                    fractional_part = elevation - int(elevation)
+                    
+                    # Check if the fractional part is within 0.15 of being a whole number
+                    if fractional_part > 0.05 and fractional_part < 0.95:
+                        continue  # Skip this point
+            
+                    rounded_elevation = self.round_elevation(elevation)
+                    contour_gaps = self.options.contour_gaps
+                    
+                    if rounded_elevation % contour_gaps != 0:
+                        continue # Skip contour 
+                        
+                    # Store the data with grid coordinates
+                    point_data = {
+                        'elevation': rounded_elevation,
+                        'latitude': lat,
+                        'longitude': lon,
+                        'x': x,
+                        'y': y
+                    }
 
-                # Add the point to the appropriate elevation group 
-                if rounded_elevation not in elevation_groups:
-                    elevation_groups[rounded_elevation] = []
-                elevation_groups[rounded_elevation].append(point_data)
+                    # Add the point to the appropriate elevation group 
+                    if rounded_elevation not in elevation_groups:
+                        elevation_groups[rounded_elevation] = []
+                    elevation_groups[rounded_elevation].append(point_data)
 
                 # Update min and max elevations
                 self.min_elevation = min(self.min_elevation, rounded_elevation)
@@ -181,6 +172,23 @@ class ElevationMapExtension(inkex.Effect):
             return [(result['elevation'], result['location']['lat'], result['location']['lng']) for result in data['results']]
         except requests.exceptions.RequestException as e:
             inkex.utils.errormsg(str(e))
+            return []
+    
+    def fetch_elevation_batch_proxy(self, locations):
+        """Fetch elevation data via API proxy"""
+        try:
+            response = requests.post(
+                PROXY_URL,
+                json={'endpoint': 'elevation', 'params': {'locations': '|'.join(locations)}},
+                headers={'Content-Type': 'application/json'},
+                timeout=30
+            )
+            data = response.json()
+            if 'results' in data:
+                return [(result['elevation'], result['location']['lat'], result['location']['lng']) for result in data['results']]
+            return []
+        except Exception as e:
+            inkex.utils.errormsg(f"Proxy error: {str(e)}")
             return []
     
     def round_elevation(self, elevation):
